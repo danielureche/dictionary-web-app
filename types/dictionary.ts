@@ -32,4 +32,4 @@ export interface HistoryItem {
 }
 
 export type FontType = 'serif' | 'sans' | 'mono';
-export type ThemeType = 'light' | 'dark';
+export type ThemeType = 'light' | 'dark' | null;
