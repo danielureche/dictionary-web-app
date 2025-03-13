@@ -9,7 +9,6 @@ export function useTheme() {
     const dispatch = useDispatch();
     const { theme } = useSelector((state: RootState) => state.theme);
 
-    // Inicializa el tema desde localStorage o preferencias del sistema
     useEffect(() => {
         if (theme !== null) return;
         
@@ -22,7 +21,6 @@ export function useTheme() {
         }
     }, [dispatch, theme]);
 
-    // Configura el listener para cambios en el tema del sistema
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const handleChange = (e: MediaQueryListEvent) => {
@@ -33,7 +31,6 @@ export function useTheme() {
         return () => mediaQuery.removeEventListener('change', handleChange);
     }, [dispatch]);
 
-    // Aplica el tema cuando cambie
     useEffect(() => {
         if (theme === null) return;
         
