@@ -31,7 +31,7 @@ A web application that allows users to search for word definitions using the Fre
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/dictionary-web-app.git
+   git clone https://github.com/danielureche/dictionary-web-app.git
    cd dictionary-web-app
    ```
 
