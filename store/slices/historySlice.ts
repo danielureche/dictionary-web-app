@@ -19,11 +19,14 @@ export const historySlice = createSlice({
                 timestamp: new Date().toISOString(),
             };
 
-            state.items = state.items.filter(item => item.word !== action.payload);
+            const existingIndex = state.items.findIndex(item => item.word === action.payload);
+            if(existingIndex !== -1){
+                state.items.splice(existingIndex, 1);
+            }
             state.items.unshift(newItem);
 
             if (state.items.length > 10) {
-                state.items = state.items.slice(0, 10);
+                state.items = state.items.splice(0, 10);
             }
         },
         clearHistory: (state) => {

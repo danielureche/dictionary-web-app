@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/store';
-import { clearHistory } from '../store/slices/historySlice';
 import { HistoryItem } from '../types/dictionary';
 import { useTheme } from '../hooks/useTheme';
+import { useHistory } from '../hooks/useHistory';
 
 interface SearchHistoryProps {
     onSelectWord: (word: string) => void;
@@ -11,8 +9,7 @@ interface SearchHistoryProps {
 
 const SearchHistory: React.FC<SearchHistoryProps> = ({ onSelectWord }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const historyItems = useSelector((state: RootState) => state.history.items);
-    const dispatch = useDispatch();
+    const { historyItems, clearAllHistory } = useHistory();
     const { theme } = useTheme();
 
     if (historyItems.length === 0) {
@@ -45,7 +42,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ onSelectWord }) => {
                     <div className="flex justify-between items-center mb-3">
                         <h3 className="font-bold">Recent searches</h3>
                         <button
-                            onClick={() => dispatch(clearHistory())}
+                            onClick={clearAllHistory}
                             className={`text-xs ${theme == 'dark' ? 'text-purple-400 hover:underline' : 'text-purple-600  hover:underline'}`}
                         >
                             Clear all
