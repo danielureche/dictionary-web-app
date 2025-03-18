@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '@/store/slices/themeSlice';
 import { RootState } from '@/store/store';
 
-type Theme = 'light' | 'dark';
-
 export function useTheme() {
     const dispatch = useDispatch();
     const { theme } = useSelector((state: RootState) => state.theme);
@@ -12,9 +10,9 @@ export function useTheme() {
     useEffect(() => {
         if (theme !== null) return;
         
-        const savedTheme = localStorage.getItem('theme') as Theme | null;
+        const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
-            dispatch(setTheme(savedTheme));
+            dispatch(setTheme(savedTheme === 'dark' ? 'dark' : 'light'));
         } else {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             dispatch(setTheme(prefersDark ? 'dark' : 'light'));

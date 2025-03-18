@@ -13,18 +13,17 @@ const initialState: DictionaryState = {
     error: null,
 };
 
+const API_BASE_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en';
+
 export const fetchDictionaryData = createAsyncThunk(
     'dictionary/fetchData',
     async (word: string, { rejectWithValue }) => {
         try {
-            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-
-            if (!response.ok) {
-                throw new Error('No definitions found');
-            }
-
-            const data = await response.json();
-            return data[0] as DictionaryEntry;
+            const response = await fetch(`${API_BASE_URL}/${word}`);
+            if (!response.ok) throw new Error('No definitions found');
+            // const data = await response.json();
+            // return data[0] as DictionaryEntry;
+            return (await response.json())[0];
         } catch (error) {
             return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch dictionary data');
         }

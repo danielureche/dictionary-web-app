@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/store/hooks/hooksRedux';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import WordDefinition from '../components/WordDefinition';
@@ -11,7 +11,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function Home() {
   const { loading, error, data, searchWord } = useDictionary();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { theme } = useTheme();
 
   const handleSearch = (word: string) => {
@@ -48,7 +48,7 @@ export default function Home() {
           )}
 
           {data && !loading && !error && (
-            <WordDefinition data={data[0]} />
+            <WordDefinition data={data} />
           )}
         </main>
       </div>
