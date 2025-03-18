@@ -4,7 +4,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { IoChevronDownSharp } from "react-icons/io5";
 
 const FontSelector: React.FC = () => {
-    const { font, setFont } = useFont();
+    const { font, changeFont } = useFont();
     const [isOpen, setIsOpen] = useState(false);
     const { theme } = useTheme();
 
@@ -51,7 +51,7 @@ const FontSelector: React.FC = () => {
                                         : "hover:bg-gray-200"}
                                     ${font === option.value ? "text-purple-600 dark:text-purple-400 font-bold" : ""}`}
                                 onClick={() => {
-                                    setFont(option.value as 'serif' | 'sans' | 'mono');
+                                    changeFont(option.value as 'serif' | 'sans' | 'mono');
                                     setIsOpen(false);
                                 }}
                                 role="option"

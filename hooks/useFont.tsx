@@ -1,35 +1,30 @@
-import { useEffect, useState } from 'react';
-
-type Font = 'serif' | 'sans' | 'mono';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '@/store/store';
+import { setFont } from '@/store/slices/fontSlice';
+import { FontType } from '@/types/dictionary';
 
 export const useFont = () => {
-    const [font, setFont] = useState<Font>('sans');
+    const dispatch = useDispatch();
+    const font = useSelector((state: RootState) => state.font.font);
 
     useEffect(() => {
-        const savedFont = localStorage.getItem('font') as Font | null;
+        const savedFont = localStorage.getItem('font') as FontType | null;
         if (savedFont) {
             setFont(savedFont);
         }
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove('font-serif', 'font-sans', 'font-mono');
-
-        switch (font) {
-            case 'serif':
-                root.classList.add('font-serif');
-                break;
-            case 'sans':
-                root.classList.add('font-sans');
-                break;
-            case 'mono':
-                root.classList.add('font-mono');
-                break;
-        }
-
-        localStorage.setItem('font', font);
+        root.classList.add(`font-${font}`);
+        localStorage.setItem("font", font);
     }, [font]);
 
-    return { font, setFont };
+    const changeFont = (newFont: FontType) => {
+        dispatch(setFont(newFont));
+    };
+
+    return { font, changeFont };
 };
